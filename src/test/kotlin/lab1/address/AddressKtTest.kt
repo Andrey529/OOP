@@ -3,88 +3,99 @@ package lab1.address
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.assertDoesNotThrow
 
 internal class AddressKtTest {
 
     @Test
-    fun parseAddresses() {
-        val adresses = """
+    fun parseAddressesNotNull() {
+        val addresses = """
             1. 11111, Москва, ул. Московская, д. 1
             2. 22222, Санкт-Петербург, ул. Питерская, д. 2
             3. 33333, Анапа, ул. Анапская, д. 3
         """.trimIndent()
-        val listAdresses = parseAddresses(adresses)
+        val listAddresses = parseAddresses(addresses)
 
-        assertDoesNotThrow { parseAddresses(adresses) }
+        val rightListAddresses: List<Address> = listOf(
+            Address(11111, "Москва", "Московская", 1),
+            Address(22222, "Санкт-Петербург", "Питерская", 2),
+            Address(33333, "Анапа", "Анапская", 3)
+        )
 
-        assertEquals(listAdresses[0].index, 11111)
-        assertEquals(listAdresses[0].city, "Москва")
-        assertEquals(listAdresses[0].street, "Московская")
-        assertEquals(listAdresses[0].building, 1)
-
-        assertEquals(listAdresses[1].index, 22222)
-        assertEquals(listAdresses[1].city, "Санкт-Петербург")
-        assertEquals(listAdresses[1].street, "Питерская")
-        assertEquals(listAdresses[1].building, 2)
-
-        assertEquals(listAdresses[2].index, 33333)
-        assertEquals(listAdresses[2].city, "Анапа")
-        assertEquals(listAdresses[2].street, "Анапская")
-        assertEquals(listAdresses[2].building, 3)
-
+        assertNotNull(parseAddresses(addresses))
+        assertEquals(listAddresses, rightListAddresses)
     }
 
     @Test
-    fun biggestIndex() {
-        val adresses = """
-            1. 11111, Москва, ул. Московская, д. 1
-            2. 22222, Санкт-Петербург, ул. Питерская, д. 2
-            3. 33333, Анапа, ул. Анапская, д. 3
-        """.trimIndent()
-        val listAdresses = parseAddresses(adresses)
-
-        assertDoesNotThrow { biggestIndex(listAdresses) }
-        assertEquals(biggestIndex(listAdresses).index, 33333)
+    fun parseAddressesNull() {
+        val addresses = ""
+        assertNull(parseAddresses(addresses))
     }
 
     @Test
-    fun smallestIndex() {
-        val adresses = """
-            1. 11111, Москва, ул. Московская, д. 1
-            2. 22222, Санкт-Петербург, ул. Питерская, д. 2
-            3. 33333, Анапа, ул. Анапская, д. 3
-        """.trimIndent()
-        val listAdresses = parseAddresses(adresses)
-
-        assertDoesNotThrow { smallestIndex(listAdresses) }
-        assertEquals(smallestIndex(listAdresses).index, 11111)
+    fun biggestIndexNotNull() {
+        val listAddresses: List<Address> = listOf(
+            Address(11111, "Москва", "Московская", 1),
+            Address(22222, "Санкт-Петербург", "Питерская", 2),
+            Address(33333, "Анапа", "Анапская", 3)
+        )
+        assertNotNull(biggestIndex(listAddresses))
+        assertEquals(biggestIndex(listAddresses), listAddresses[2])
     }
 
     @Test
-    fun addressWithLongestStreet() {
-        val adresses = """
-            1. 11111, Москва, ул. Московская, д. 1
-            2. 22222, Санкт-Петербург, ул. Питерская, д. 2
-            3. 33333, Анапа, ул. Анапская, д. 3
-        """.trimIndent()
-        val listAdresses = parseAddresses(adresses)
-
-        assertDoesNotThrow { addressWithLongestStreet(listAdresses) }
-        assertEquals(addressWithLongestStreet(listAdresses).street, "Московская")
+    fun biggestIndexNull() {
+        val listAddresses: List<Address> = emptyList()
+        assertNull(biggestIndex(listAddresses))
     }
 
     @Test
-    fun addressWithShortestStreet() {
-        val adresses = """
-            1. 11111, Москва, ул. Московская, д. 1
-            2. 22222, Санкт-Петербург, ул. Питерская, д. 2
-            3. 33333, Анапа, ул. Анапская, д. 3
-        """.trimIndent()
-        val listAdresses = parseAddresses(adresses)
-
-        assertDoesNotThrow { addressWithShortestStreet(listAdresses) }
-        assertEquals(addressWithShortestStreet(listAdresses).street, "Анапская")
+    fun smallestIndexNotNull() {
+        val listAddresses: List<Address> = listOf(
+            Address(11111, "Москва", "Московская", 1),
+            Address(22222, "Санкт-Петербург", "Питерская", 2),
+            Address(33333, "Анапа", "Анапская", 3)
+        )
+        assertNotNull(smallestIndex(listAddresses))
+        assertEquals(smallestIndex(listAddresses), listAddresses[0])
     }
 
+    @Test
+    fun smallestIndexNull() {
+        val listAddresses: List<Address> = emptyList()
+        assertNull(smallestIndex(listAddresses))
+    }
+
+    @Test
+    fun addressWithLongestStreetNotNull() {
+        val listAddresses: List<Address> = listOf(
+            Address(11111, "Москва", "Московская", 1),
+            Address(22222, "Санкт-Петербург", "Питерская", 2),
+            Address(33333, "Анапа", "Анапская", 3)
+        )
+        assertNotNull(addressWithLongestStreet(listAddresses))
+        assertEquals(addressWithLongestStreet(listAddresses), listAddresses[0])
+    }
+
+    @Test
+    fun addressWithLongestStreetNull() {
+        val listAddresses: List<Address> = emptyList()
+        assertNull(addressWithLongestStreet(listAddresses))
+    }
+
+    @Test
+    fun addressWithShortestStreetNotNull() {
+        val listAddresses: List<Address> = listOf(
+            Address(11111, "Москва", "Московская", 1),
+            Address(22222, "Санкт-Петербург", "Питерская", 2),
+            Address(33333, "Анапа", "Анапская", 3)
+        )
+        assertNotNull(addressWithShortestStreet(listAddresses))
+        assertEquals(addressWithShortestStreet(listAddresses), listAddresses[2])
+    }
+
+    @Test
+    fun addressWithShortestStreetNull() {
+        val listAddresses: List<Address> = emptyList()
+        assertNull(addressWithShortestStreet(listAddresses))
+    }
 }
