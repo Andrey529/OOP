@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
     val listAdresses: List<Address>? = parseAddresses(adresses)
 
     if (listAdresses != null) {
-        for (adress in listAdresses){
+        for (adress in listAdresses) {
             println(adress)
         }
 
@@ -36,8 +36,7 @@ fun main(args: Array<String>) {
         if (addressWithShortestStreet != null)
             println("Adress with the shortest street; street = ${addressWithShortestStreet.street}")
         else println("Empty list of adresses")
-    }
-    else {
+    } else {
         println("Empty string with adresses")
     }
 }
