@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="MainKt" type="JetRunConfigurationType" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="address.MainKt" />
-    <module name="Lab1.main" />
+  <configuration default="false" name="MainKtLab1" type="JetRunConfigurationType">
+    <option name="MAIN_CLASS_NAME" value="lab1.MainKt" />
+    <module name="OOP.main" />
     <shortenClasspath name="NONE" />
     <method v="2">
       <option name="Make" enabled="true" />

@@ -1,4 +1,4 @@
-package address
+package lab1.address
 
 fun biggestIndex(addresses: MutableList<Address>) : Address {
     if (addresses.isEmpty()){

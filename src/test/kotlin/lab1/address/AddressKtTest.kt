@@ -1,4 +1,4 @@
-package address
+package lab1.address
 
 import org.junit.jupiter.api.Test
 

@@ -1,4 +1,6 @@
-package address
+package lab1
+
+import lab1.address.*
 
 fun main(args: Array<String>) {
 
