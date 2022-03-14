@@ -10,29 +10,34 @@ fun main(args: Array<String>) {
             3. 33333, Анапа, ул. Анапская, д. 3
         """.trimIndent()
 
-    val listAdresses: MutableList<Address>
-    try {
-        listAdresses = parseAddresses(adresses)
-    }
-    catch (e: IllegalArgumentException) {
-        println(e)
-        return
-    }
+    val listAdresses: List<Address>? = parseAddresses(adresses)
 
-    for (adress in listAdresses){
-        println(adress)
-    }
+    if (listAdresses != null) {
+        for (adress in listAdresses){
+            println(adress)
+        }
 
-    try {
-        println("Adress with the biggest index; index = ${biggestIndex(listAdresses).index}")
-        println("Adress with the smallest index; index = ${smallestIndex(listAdresses).index}")
+        val addressWithBiggestIndex = biggestIndex(listAdresses)
+        if (addressWithBiggestIndex != null)
+            println("Adress with the biggest index; index = ${addressWithBiggestIndex.index}")
+        else println("Empty list of adresses")
 
-        println("Adress with the longest street; street = ${addressWithLongestStreet(listAdresses).street}")
-        println("Adress with the shortest street; street = ${addressWithShortestStreet(listAdresses).street}")
-    }
-    catch (e: IllegalArgumentException) {
-        println(e)
-        return
-    }
+        val addressWithSmallestIndex = smallestIndex(listAdresses)
+        if (addressWithSmallestIndex != null)
+            println("Adress with the smallest index; index = ${addressWithSmallestIndex.index}")
+        else println("Empty list of adresses")
 
+        val addressWithLongestStreet = addressWithLongestStreet(listAdresses)
+        if (addressWithLongestStreet != null)
+            println("Adress with the longest street; street = ${addressWithLongestStreet.street}")
+        else println("Empty list of adresses")
+
+        val addressWithShortestStreet = addressWithShortestStreet(listAdresses)
+        if (addressWithShortestStreet != null)
+            println("Adress with the shortest street; street = ${addressWithShortestStreet.street}")
+        else println("Empty list of adresses")
+    }
+    else {
+        println("Empty string with adresses")
+    }
 }

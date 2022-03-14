@@ -1,61 +1,13 @@
 package lab1.address
 
-fun biggestIndex(addresses: MutableList<Address>) : Address {
-    if (addresses.isEmpty()){
-        throw IllegalArgumentException("Empty list of adresses")
-    }
-    var biggestIndex = addresses[0]
-    for (adress in addresses){
-        if (adress.index > biggestIndex.index){
-            biggestIndex = adress
-        }
-    }
-    return biggestIndex
-}
+fun biggestIndex(addresses: List<Address>): Address? = addresses.maxByOrNull { it.index }
+fun smallestIndex(addresses: List<Address>): Address? = addresses.minByOrNull { it.index }
+fun addressWithLongestStreet(addresses: List<Address>): Address? = addresses.maxByOrNull { it.street.length }
+fun addressWithShortestStreet(addresses: List<Address>): Address? = addresses.minByOrNull { it.street.length }
 
-fun smallestIndex(addresses: MutableList<Address>) : Address {
-    if (addresses.isEmpty()){
-        throw IllegalArgumentException("Empty list of adresses")
-    }
-    var smallestIndex = addresses[0]
-    for (adress in addresses){
-        if (adress.index < smallestIndex.index){
-            smallestIndex = adress
-        }
-    }
-    return smallestIndex
-}
-
-fun addressWithLongestStreet(addresses: MutableList<Address>) : Address {
-    if (addresses.isEmpty()){
-        throw IllegalArgumentException("Empty list of adresses")
-    }
-    var biggestStreet = addresses[0]
-    for (adress in addresses){
-        if (adress.street.length > biggestStreet.street.length) {
-            biggestStreet = adress
-        }
-    }
-    return biggestStreet
-}
-
-fun addressWithShortestStreet(addresses: MutableList<Address>) : Address {
-    if (addresses.isEmpty()){
-        throw IllegalArgumentException("Empty list of adresses")
-    }
-    var smallestStreet = addresses[0]
-    for (adress in addresses){
-        if (adress.street.length < smallestStreet.street.length) {
-            smallestStreet = adress
-        }
-    }
-    return smallestStreet
-}
-
-
-fun parseAddresses(addresses: String) : MutableList<Address> {
-    if (addresses.isEmpty()){
-        throw IllegalArgumentException("Empty string")
+fun parseAddresses(addresses: String): List<Address>? {
+    if (addresses.isEmpty()) {
+        return null
     }
 
     val listAddresses = mutableListOf<Address>()
@@ -80,27 +32,5 @@ fun parseAddresses(addresses: String) : MutableList<Address> {
 data class Address(val index: Int, val city: String, val street: String, val building: Int) {
     override fun toString(): String {
         return "Address: index = $index, city = $city, street = $street, building number = $building"
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Address
-
-        if (index != other.index) return false
-        if (city != other.city) return false
-        if (street != other.street) return false
-        if (building != other.building) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = index
-        result = 31 * result + city.hashCode()
-        result = 31 * result + street.hashCode()
-        result = 31 * result + building
-        return result
     }
 }
