@@ -5,23 +5,23 @@ fun smallestIndex(addresses: List<Address>): Address? = addresses.minByOrNull { 
 fun addressWithLongestStreet(addresses: List<Address>): Address? = addresses.maxByOrNull { it.street.length }
 fun addressWithShortestStreet(addresses: List<Address>): Address? = addresses.minByOrNull { it.street.length }
 
-fun parseAddresses(addresses: String): List<Address>? {
+fun parseAddresses(addresses: String): List<Address> {
     if (addresses.isEmpty()) {
-        return null
+        return emptyList()
     }
 
     val listAddresses = mutableListOf<Address>()
     val strings = addresses.split('\n')
 
     for (str in strings) {
-        val partString = str.split(',') // [N. ИндексN, Название города N, ул. Название улицы, д. Номер дома]
+        val partString = str.split(',') // split the string by commas
 
-        val indexPart = partString[0].split('.') // [N, ИндексN]
-        val index = indexPart[1].drop(1).toInt() // ИндексN
+        val indexPart = partString[0].split('.') // split first element of list strings by dot
+        val index = indexPart[1].drop(1).toInt() // get index
 
-        val city = partString[1].drop(1)  // Название города N
-        val street = partString[2].drop(5) // Название улицы
-        val buildingNumber = partString[3].drop(4).toInt() // Номер дома
+        val city = partString[1].drop(1)  // get city from list strings
+        val street = partString[2].drop(5) // get street from list strings
+        val buildingNumber = partString[3].drop(4).toInt() // get building from list strings
 
         val address = Address(index, city, street, buildingNumber)
         listAddresses.add(address)

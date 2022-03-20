@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.*
 internal class AddressKtTest {
 
     @Test
-    fun parseAddressesNotNull() {
+    fun parseAddressesNotEmptyList() {
         val addresses = """
             1. 11111, Москва, ул. Московская, д. 1
             2. 22222, Санкт-Петербург, ул. Питерская, д. 2
@@ -21,14 +21,13 @@ internal class AddressKtTest {
             Address(33333, "Анапа", "Анапская", 3)
         )
 
-        assertNotNull(parseAddresses(addresses))
         assertEquals(listAddresses, rightListAddresses)
     }
 
     @Test
-    fun parseAddressesNull() {
+    fun parseAddressesEmptyList() {
         val addresses = ""
-        assertNull(parseAddresses(addresses))
+        assertEquals(parseAddresses(addresses), emptyList<Address>())
     }
 
     @Test
