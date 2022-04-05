@@ -1,10 +1,6 @@
-package lab2.shape
+package lab2.shape2d
 
 import lab2.colorRGB.ColorRGB
-
-interface Shape2d {
-    fun calcArea(): Double
-}
 
 interface ColoredShape2d : Shape2d {
     val borderColor: ColorRGB

@@ -1,9 +1,9 @@
-package lab2.shape
+package lab2.shape2d
 
 import lab2.colorRGB.ColorRGB
 import kotlin.math.PI
 
-class circle(
+class Circle(
     val semidiameter: Double,
     override val fillColor: ColorRGB,
     override val borderColor: ColorRGB
