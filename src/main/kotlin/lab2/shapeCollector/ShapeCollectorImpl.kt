@@ -1,31 +1,52 @@
 package lab2.shapeCollector
 
-import lab2.shape2d.Shape2d
+import lab2.colorRGB.ColorRGB
+import lab2.shape2d.ColoredShape2d
 
-class NotColoredShapeCollectorImpl : ShapeCollector {
-    private var shapeList  = emptyList<Shape2d>() as MutableList<Shape2d>
+class ShapeCollectorImpl : ShapeCollector {
+    private val shapeList = mutableListOf<ColoredShape2d>()
 
-    override fun addShape(shape: Shape2d) {
+    override fun addShape(shape: ColoredShape2d) {
         shapeList.add(shape)
     }
 
-    override fun getShapeWithMaxArea(): Shape2d {
-        TODO("Not yet implemented")
+    override fun getShapeWithMaxArea(): ColoredShape2d? {
+        return shapeList.maxByOrNull { it.calcArea() }
+    }
+
+    override fun getShapeWithMinArea(): ColoredShape2d? {
+        return shapeList.minByOrNull { it.calcArea() }
     }
 
     override fun sumAllShapesArea(): Double {
-        TODO("Not yet implemented")
+        return shapeList.sumOf { it.calcArea() }
     }
 
-    override fun getAllShapes(): List<Shape2d> {
-        TODO("Not yet implemented")
+    override fun getShapesByBorderColor(borderColor: ColorRGB): List<ColoredShape2d> {
+        return shapeList.filter { it.borderColor == borderColor }
+    }
+
+    override fun getShapeByFillColor(fillColor: ColorRGB): List<ColoredShape2d> {
+        return shapeList.filter { it.fillColor == fillColor }
+    }
+
+    override fun getAllShapes(): List<ColoredShape2d> {
+        return shapeList
     }
 
     override fun getCountShapes(): Int {
-        TODO("Not yet implemented")
+        return shapeList.size
     }
 
+    override fun getShapesGroupedByBorderColor(): Map<ColorRGB, List<ColoredShape2d>> {
+        return shapeList.groupBy { it.borderColor }
+    }
 
+    override fun getShapesGroupedByFillColor(): Map<ColorRGB, List<ColoredShape2d>> {
+        return shapeList.groupBy { it.fillColor }
+    }
+
+    override fun <T> getShapesByType(type: Class<T>): List<ColoredShape2d> {
+        return shapeList.filter { type.isInstance(it) }
+    }
 }
-
-//class NotColoredShapeCollectorImpl : ColoredShapeCollector
