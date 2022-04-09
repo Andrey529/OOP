@@ -27,7 +27,7 @@ class ColoredTriangle(
     override val side2: Double,
     override val side3: Double,
     override val fillColor: ColorRGB,
-    override val borderColor: ColorRGB
+    override val borderColor: ColorRGB,
 ) : Triangle, ColoredShape2d {
     init {
         require(side1 > 0) { "Incorrect length of side1 in Colored Triangle" }
