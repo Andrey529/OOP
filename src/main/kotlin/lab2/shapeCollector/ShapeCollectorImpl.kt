@@ -26,7 +26,7 @@ class ShapeCollectorImpl : ShapeCollector {
         return shapeList.filter { it.borderColor == borderColor }
     }
 
-    override fun getShapeByFillColor(fillColor: ColorRGB): List<ColoredShape2d> {
+    override fun getShapesByFillColor(fillColor: ColorRGB): List<ColoredShape2d> {
         return shapeList.filter { it.fillColor == fillColor }
     }
 

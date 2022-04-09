@@ -9,7 +9,7 @@ interface ShapeCollector {
     fun getShapeWithMinArea(): ColoredShape2d?
     fun sumAllShapesArea(): Double
     fun getShapesByBorderColor(borderColor: ColorRGB): List<ColoredShape2d>
-    fun getShapeByFillColor(fillColor: ColorRGB): List<ColoredShape2d>
+    fun getShapesByFillColor(fillColor: ColorRGB): List<ColoredShape2d>
     fun getAllShapes(): List<ColoredShape2d>
     fun getCountShapes(): Int
     fun getShapesGroupedByBorderColor(): Map<ColorRGB, List<ColoredShape2d>>
