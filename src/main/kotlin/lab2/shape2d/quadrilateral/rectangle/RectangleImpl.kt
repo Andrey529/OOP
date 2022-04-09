@@ -4,7 +4,7 @@ import lab2.colorRGB.ColorRGB
 import lab2.shape2d.ColoredShape2d
 import lab2.shape2d.Shape2d
 
-class NotColoredRectangle(override val length: Double, override val width: Double) : Rectangle, Shape2d {
+data class NotColoredRectangle(override val length: Double, override val width: Double) : Rectangle, Shape2d {
     init {
         require(length > 0) { "Incorrect length in Not Colored Square" }
         require(width > 0) { "Incorrect width in Not Colored Square" }
@@ -13,7 +13,7 @@ class NotColoredRectangle(override val length: Double, override val width: Doubl
     override fun calcArea(): Double = length * width
 }
 
-class ColoredRectangle(
+data class ColoredRectangle(
     override val length: Double,
     override val width: Double,
     override val fillColor: ColorRGB,

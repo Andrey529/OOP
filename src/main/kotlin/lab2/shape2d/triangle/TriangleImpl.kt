@@ -5,7 +5,7 @@ import lab2.shape2d.ColoredShape2d
 import lab2.shape2d.Shape2d
 import kotlin.math.sqrt
 
-class NotColoredTriangle(
+data class NotColoredTriangle(
     override val side1: Double,
     override val side2: Double,
     override val side3: Double,
@@ -22,7 +22,7 @@ class NotColoredTriangle(
     }
 }
 
-class ColoredTriangle(
+data class ColoredTriangle(
     override val side1: Double,
     override val side2: Double,
     override val side3: Double,
