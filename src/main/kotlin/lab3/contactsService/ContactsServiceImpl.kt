@@ -67,46 +67,116 @@ class ContactsServiceImpl : ContactsService {
     }
 
     override fun removeContact(person: Person, contact: Contact) {
-        peopleData[person]?.remove(contact)
-        LOG.info("Removed contact: $contact to person: $person")
+        val listContacts = peopleData.get(person)
+        if (listContacts != null) {
+            listContacts.remove(contact)
+            LOG.info("Removed contact: $contact to person: $person")
+        } else {
+            LOG.info("Not removed contact: $contact because does not have person: $person")
+        }
     }
 
     override fun removeAllPersonData(person: Person) {
-        peopleData[person]?.clear()
+        val listContacts = peopleData.get(person)
+        if (listContacts != null) {
+            listContacts.clear()
+            LOG.info("Removed all contacts of a person: $person")
+        } else {
+            LOG.info("Not removed all contacts of a person: $person because they are not there")
+        }
     }
 
     override fun getPersonContacts(person: Person): List<Contact> {
-        return peopleData[person]?.toList() ?: emptyList()
+        val listContacts = peopleData.get(person)
+        if (listContacts != null) {
+            LOG.info("Returned all contacts of a person: $person")
+            return listContacts
+        } else {
+            LOG.info("Not returned all contacts of a person: $person because they are not there. Returned empty list")
+            return emptyList()
+        }
     }
 
     override fun getPersonPhones(person: Person): List<Contact.Phone> {
-        return buildList {
-            peopleData[person]?.filter { it is ContactImpl.Phone }
+        val listContacts = peopleData.get(person)
+        if (listContacts != null) {
+            LOG.info("Returned phone contacts of a person: $person")
+            return buildList {
+                listContacts.filter { it is ContactImpl.Phone }
+            }
+        } else {
+            LOG.info("Not returned phone contacts of a person: $person because they are not there. Returned empty list")
+            return emptyList()
         }
     }
 
     override fun getPersonEmails(person: Person): List<Contact.Email> {
-        TODO("Not yet implemented")
+        val listContacts = peopleData.get(person)
+        if (listContacts != null) {
+            LOG.info("Returned email contacts of a person: $person")
+            return buildList {
+                listContacts.filter { it is ContactImpl.Email }
+            }
+        } else {
+            LOG.info("Not returned email contacts of a person: $person because they are not there. Returned empty list")
+            return emptyList()
+        }
     }
 
     override fun getPersonAddresses(person: Person): List<Contact.Address> {
-        TODO("Not yet implemented")
+        val listContacts = peopleData.get(person)
+        if (listContacts != null) {
+            LOG.info("Returned address contacts of a person: $person")
+            return buildList {
+                listContacts.filter { it is ContactImpl.Address }
+            }
+        } else {
+            LOG.info("Not returned address contacts of a person: $person because they are not there. Returned empty list")
+            return emptyList()
+        }
     }
 
     override fun getPersonLinksToSocialNetwork(person: Person): List<Contact.LinkToSocialNetwork> {
-        TODO("Not yet implemented")
+        val listContacts = peopleData.get(person)
+        if (listContacts != null) {
+            LOG.info("Returned links to social network contacts of a person: $person")
+            return buildList {
+                listContacts.filter { it is ContactImpl.LinkToSocialNetwork }
+            }
+        } else {
+            LOG.info("Not returned links to social network contacts of a person: $person because they are not there. Returned empty list")
+            return emptyList()
+        }
     }
 
     override fun getAllPersons(): List<Person> {
-        TODO("Not yet implemented")
+        LOG.info("Returned a list of people")
+        return buildList {
+            peopleData.keys
+        }
     }
 
     override fun getAllContacts(): Map<Person, List<Contact>> {
-        TODO("Not yet implemented")
+        LOG.info("Returned all contacts of people")
+        return peopleData
     }
 
     override fun findPersons(subStringOfFirstName: String?, subStringOfLastName: String?): List<Person> {
-        TODO("Not yet implemented")
+        if (subStringOfFirstName != null && subStringOfLastName != null) {
+            return buildList {
+                peopleData.filter { subStringOfFirstName in it.key.firstName && subStringOfLastName in it.key.lastName }
+            }
+        } else if (subStringOfFirstName != null) {
+            return buildList {
+                peopleData.filter { subStringOfFirstName in it.key.firstName }
+            }
+        } else if (subStringOfLastName != null) {
+            return buildList {
+                peopleData.filter { subStringOfLastName in it.key.lastName }
+            }
+        } else {
+            return emptyList()
+        }
     }
 
     fun getSize() = peopleData.size

@@ -15,6 +15,4 @@ fun main(args: Array<String>) {
     contactService.addContact(person, ContactImpl.Email("1232435@mail.ru"))
 
     println(contactService.getSize())
-//    contactService.removeContact(PersonImpl("Andr", "da"), ContactImpl.Email("asdfhgjg"))
-
 }
