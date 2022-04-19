@@ -25,21 +25,21 @@ interface ContactsService {
 
     /**
      * Delete all data about a person
-      */
+     */
     fun removeAllPersonData(person: Person)
 
     /**
      * Get all contacts of a person
      */
-    fun getPersonContacts(person: Person) : List<Contact>
+    fun getPersonContacts(person: Person): List<Contact>
 
     /**
      * Get a contact details of a specific type from a person
      */
-    fun getPersonPhones(person: Person) : List<Contact.Phone>
-    fun getPersonEmails(person: Person): List<Contact.Email>
-    fun getPersonAddresses(person: Person) : List<Contact.Address>
-    fun getPersonLinksToSocialNetwork(person: Person) : List<Contact.LinkToSocialNetwork>
+    fun getPersonPhones(person: Person): List<ContactImpl.Phone>
+    fun getPersonEmails(person: Person): List<ContactImpl.Email>
+    fun getPersonAddresses(person: Person): List<ContactImpl.Address>
+    fun getPersonLinksToSocialNetwork(person: Person): List<ContactImpl.LinkToSocialNetwork>
 
     /**
      * Get all people who have contacts
@@ -54,5 +54,10 @@ interface ContactsService {
     /**
      * Search for people by substring in first and last name
      */
-    fun findPersons(subStringOfFirstName: String?, subStringOfLastName: String?) : List<Person>
+    fun findPersons(subStringOfFirstName: String?, subStringOfLastName: String?): List<Person>
+
+    /**
+     * Size of contact service
+     */
+    fun getSize(): Int
 }

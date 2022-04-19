@@ -97,52 +97,44 @@ class ContactsServiceImpl : ContactsService {
         }
     }
 
-    override fun getPersonPhones(person: Person): List<Contact.Phone> {
+    override fun getPersonPhones(person: Person): List<ContactImpl.Phone> {
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
             LOG.info("Returned phone contacts of a person: $person")
-            return buildList {
-                listContacts.filter { it is ContactImpl.Phone }
-            }
+            return listContacts.filterIsInstance<ContactImpl.Phone>()
         } else {
             LOG.info("Not returned phone contacts of a person: $person because they are not there. Returned empty list")
             return emptyList()
         }
     }
 
-    override fun getPersonEmails(person: Person): List<Contact.Email> {
+    override fun getPersonEmails(person: Person): List<ContactImpl.Email> {
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
             LOG.info("Returned email contacts of a person: $person")
-            return buildList {
-                listContacts.filter { it is ContactImpl.Email }
-            }
+            return listContacts.filterIsInstance<ContactImpl.Email>()
         } else {
             LOG.info("Not returned email contacts of a person: $person because they are not there. Returned empty list")
             return emptyList()
         }
     }
 
-    override fun getPersonAddresses(person: Person): List<Contact.Address> {
+    override fun getPersonAddresses(person: Person): List<ContactImpl.Address> {
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
             LOG.info("Returned address contacts of a person: $person")
-            return buildList {
-                listContacts.filter { it is ContactImpl.Address }
-            }
+            return listContacts.filterIsInstance<ContactImpl.Address>()
         } else {
             LOG.info("Not returned address contacts of a person: $person because they are not there. Returned empty list")
             return emptyList()
         }
     }
 
-    override fun getPersonLinksToSocialNetwork(person: Person): List<Contact.LinkToSocialNetwork> {
+    override fun getPersonLinksToSocialNetwork(person: Person): List<ContactImpl.LinkToSocialNetwork> {
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
             LOG.info("Returned links to social network contacts of a person: $person")
-            return buildList {
-                listContacts.filter { it is ContactImpl.LinkToSocialNetwork }
-            }
+            return listContacts.filterIsInstance<ContactImpl.LinkToSocialNetwork>()
         } else {
             LOG.info("Not returned links to social network contacts of a person: $person because they are not there. Returned empty list")
             return emptyList()
@@ -151,9 +143,7 @@ class ContactsServiceImpl : ContactsService {
 
     override fun getAllPersons(): List<Person> {
         LOG.info("Returned a list of people")
-        return buildList {
-            peopleData.keys
-        }
+        return peopleData.keys.toList()
     }
 
     override fun getAllContacts(): Map<Person, List<Contact>> {
@@ -163,22 +153,16 @@ class ContactsServiceImpl : ContactsService {
 
     override fun findPersons(subStringOfFirstName: String?, subStringOfLastName: String?): List<Person> {
         if (subStringOfFirstName != null && subStringOfLastName != null) {
-            return buildList {
-                peopleData.filter { subStringOfFirstName in it.key.firstName && subStringOfLastName in it.key.lastName }
-            }
+            return peopleData.keys.filter { subStringOfFirstName in it.firstName && subStringOfLastName in it.lastName }
         } else if (subStringOfFirstName != null) {
-            return buildList {
-                peopleData.filter { subStringOfFirstName in it.key.firstName }
-            }
+            return peopleData.keys.filter { subStringOfFirstName in it.firstName }
         } else if (subStringOfLastName != null) {
-            return buildList {
-                peopleData.filter { subStringOfLastName in it.key.lastName }
-            }
+            return peopleData.keys.filter { subStringOfLastName in it.lastName }
         } else {
             return emptyList()
         }
     }
 
-    fun getSize() = peopleData.size
+    override fun getSize() = peopleData.size
 
 }
