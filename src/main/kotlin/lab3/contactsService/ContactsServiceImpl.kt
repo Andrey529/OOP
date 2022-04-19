@@ -52,7 +52,7 @@ class ContactsServiceImpl : ContactsService {
         if (listContacts != null) {
             listContacts.add(ContactImpl.Address(city, street, house, flat))
         }
-        LOG.info("Added adress contact with city: $city, street: $street, house: $house and flat: $flat to person: $person")
+        LOG.info("Added address contact with city: $city, street: $street, house: $house and flat: $flat to person: $person")
     }
 
     override fun addLinkToSocialNetwork(person: Person, title: String, link: String) {
