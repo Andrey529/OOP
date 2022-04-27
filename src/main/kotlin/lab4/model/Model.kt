@@ -25,9 +25,14 @@ enum class Move(val textValue: String) {
     UP("Up"),
     DOWN("Down"),
     RIGHT("Right"),
-    LEFT("Left");
+    LEFT("Left"),
+    STOP("Stop");
 
     override fun toString(): String = textValue
+}
+
+interface ModelChangeListener {
+    fun onModelChanged()
 }
 
 
@@ -52,15 +57,49 @@ class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
     private val _boardHeight = _board.keys.maxOf { it.first }
     private val _boardWidth = _board.keys.maxOf { it.second }
 
+    private val listeners: MutableSet<ModelChangeListener> = mutableSetOf()
+
+    fun addModelChangeListener(listener: ModelChangeListener) {
+        listeners.add(listener)
+    }
+
+    fun removeModelChangeListener(listener: ModelChangeListener) {
+        listeners.remove(listener)
+    }
+
+    private fun notifyListeners() {
+        listeners.forEach { it.onModelChanged() }
+    }
+
     fun doMove(move: Move) {
         require(state == State.NOT_YET_WIN) { "Labyrinth finished" }
-        require((move == Move.LEFT && _currentPosition.x != 0) ||
-                (move == Move.RIGHT && _currentPosition.x != _boardWidth) ||
-                (move == Move.UP && _currentPosition.y != 0) ||
-                (move == Move.DOWN && _currentPosition.y != _boardHeight)) { "It is impossible to make such a move" }
+        require(
+            (move == Move.LEFT && _currentPosition.x != 0) ||
+                    (move == Move.RIGHT && _currentPosition.x != _boardWidth) ||
+                    (move == Move.UP && _currentPosition.y != 0) ||
+                    (move == Move.DOWN && _currentPosition.y != _boardHeight)
+        ) { "It is impossible to make such a move" }
+        require(
+                    (move == Move.LEFT && (_board[Pair(_currentPosition.y, _currentPosition.x - 1)] == '-' ||
+                            _board[Pair(_currentPosition.y, _currentPosition.x - 1)] == 'S' ||
+                            _board[Pair(_currentPosition.y, _currentPosition.x - 1)] == 'F')
+                    ) ||
+                    (move == Move.RIGHT && (_board[Pair(_currentPosition.y, _currentPosition.x + 1)] == '-' ||
+                            _board[Pair(_currentPosition.y, _currentPosition.x + 1)] == 'S' ||
+                            _board[Pair(_currentPosition.y, _currentPosition.x + 1)] == 'F')
+                    ) ||
+                    (move == Move.UP && (_board[Pair(_currentPosition.y - 1, _currentPosition.x)] == '-' ||
+                            _board[Pair(_currentPosition.y - 1, _currentPosition.x)] == 'S' ||
+                            _board[Pair(_currentPosition.y - 1, _currentPosition.x)] == 'F')
+                    ) ||
+                    (move == Move.DOWN && (_board[Pair(_currentPosition.y + 1, _currentPosition.x)] == '-' ||
+                            _board[Pair(_currentPosition.y + 1, _currentPosition.x)] == 'S' ||
+                            _board[Pair(_currentPosition.y + 1, _currentPosition.x)] == 'F')
+                    )
+        ) { "It is impossible to make such a move" }
 
         // update board
-        when(move) {
+        when (move) {
             Move.LEFT -> --_currentPosition.x
             Move.RIGHT -> ++_currentPosition.x
             Move.UP -> --_currentPosition.y
@@ -69,6 +108,8 @@ class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
 
         // check win
         state = if (_currentPosition == _finishPosition) State.WIN else State.NOT_YET_WIN
+
+        notifyListeners()
     }
 
 
@@ -90,5 +131,22 @@ class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
             print(it.value)
         }
         println()
+    }
+
+    override fun toString(): String {
+        return buildString {
+            append(state).appendLine()
+
+            for (i in 0.._boardHeight) {
+                for (j in 0.._boardWidth) {
+                    if (i == _currentPosition.y && j == _currentPosition.x)
+                        append('P')
+                    else
+                        append(_board[Pair(i, j)])
+                }
+                appendLine()
+            }
+
+        }
     }
 }
