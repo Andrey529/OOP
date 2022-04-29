@@ -12,8 +12,8 @@ class Controller(private val model: Model) {
     private fun startGame() {
         while (model.state == NOT_YET_WIN) {
             try {
-                val input = readln().toCharArray()[0]
-                val move = when(input) {
+                val input = readln().toCharArray()[0].toLowerCase()
+                val move = when (input) {
                     'a' -> Move.LEFT
                     'w' -> Move.UP
                     'd' -> Move.RIGHT

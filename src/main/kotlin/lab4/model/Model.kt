@@ -73,29 +73,33 @@ class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
 
     fun doMove(move: Move) {
         require(state == State.NOT_YET_WIN) { "Labyrinth finished" }
+
+        // border collision test
         require(
             (move == Move.LEFT && _currentPosition.x != 0) ||
                     (move == Move.RIGHT && _currentPosition.x != _boardWidth) ||
                     (move == Move.UP && _currentPosition.y != 0) ||
                     (move == Move.DOWN && _currentPosition.y != _boardHeight)
         ) { "It is impossible to make such a move" }
+
+        // wall collision test
         require(
-                    (move == Move.LEFT && (_board[Pair(_currentPosition.y, _currentPosition.x - 1)] == '-' ||
-                            _board[Pair(_currentPosition.y, _currentPosition.x - 1)] == 'S' ||
-                            _board[Pair(_currentPosition.y, _currentPosition.x - 1)] == 'F')
+            (move == Move.LEFT && (_board[Pair(_currentPosition.y, _currentPosition.x - 1)] == '-' ||
+                    _board[Pair(_currentPosition.y, _currentPosition.x - 1)] == 'S' ||
+                    _board[Pair(_currentPosition.y, _currentPosition.x - 1)] == 'F')
                     ) ||
                     (move == Move.RIGHT && (_board[Pair(_currentPosition.y, _currentPosition.x + 1)] == '-' ||
                             _board[Pair(_currentPosition.y, _currentPosition.x + 1)] == 'S' ||
                             _board[Pair(_currentPosition.y, _currentPosition.x + 1)] == 'F')
-                    ) ||
+                            ) ||
                     (move == Move.UP && (_board[Pair(_currentPosition.y - 1, _currentPosition.x)] == '-' ||
                             _board[Pair(_currentPosition.y - 1, _currentPosition.x)] == 'S' ||
                             _board[Pair(_currentPosition.y - 1, _currentPosition.x)] == 'F')
-                    ) ||
+                            ) ||
                     (move == Move.DOWN && (_board[Pair(_currentPosition.y + 1, _currentPosition.x)] == '-' ||
                             _board[Pair(_currentPosition.y + 1, _currentPosition.x)] == 'S' ||
                             _board[Pair(_currentPosition.y + 1, _currentPosition.x)] == 'F')
-                    )
+                            )
         ) { "It is impossible to make such a move" }
 
         // update board
@@ -104,6 +108,7 @@ class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
             Move.RIGHT -> ++_currentPosition.x
             Move.UP -> --_currentPosition.y
             Move.DOWN -> ++_currentPosition.y
+            else -> return
         }
 
         // check win
