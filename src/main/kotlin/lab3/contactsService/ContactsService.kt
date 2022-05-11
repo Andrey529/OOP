@@ -36,10 +36,10 @@ interface ContactsService {
     /**
      * Get a contact details of a specific type from a person
      */
-    fun getPersonPhones(person: Person): List<ContactImpl.Phone>
-    fun getPersonEmails(person: Person): List<ContactImpl.Email>
-    fun getPersonAddresses(person: Person): List<ContactImpl.Address>
-    fun getPersonLinksToSocialNetwork(person: Person): List<ContactImpl.LinkToSocialNetwork>
+    fun getPersonPhones(person: Person): List<Contact.Phone>
+    fun getPersonEmails(person: Person): List<Contact.Email>
+    fun getPersonAddresses(person: Person): List<Contact.Address>
+    fun getPersonLinksToSocialNetwork(person: Person): List<Contact.LinkToSocialNetwork>
 
     /**
      * Get all people who have contacts

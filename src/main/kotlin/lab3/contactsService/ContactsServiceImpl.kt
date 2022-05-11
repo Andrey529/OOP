@@ -1,7 +1,6 @@
 package lab3.contactsService
 
 import lab3.contact.Contact
-import lab3.contact.ContactImpl
 import lab3.contact.PhoneType
 import lab3.person.Person
 import org.apache.logging.log4j.LogManager
@@ -28,7 +27,7 @@ class ContactsServiceImpl : ContactsService {
         }
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
-            listContacts.add(ContactImpl.Phone(phone, phoneType))
+            listContacts.add(Contact.Phone(phone, phoneType))
         }
         LOG.info("Added phone contact with phone number: $phone and phone type: $phoneType to person: $person")
     }
@@ -39,7 +38,7 @@ class ContactsServiceImpl : ContactsService {
         }
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
-            listContacts.add(ContactImpl.Email(email))
+            listContacts.add(Contact.Email(email))
         }
         LOG.info("Added email contact with email: $email to person: $person")
     }
@@ -50,7 +49,7 @@ class ContactsServiceImpl : ContactsService {
         }
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
-            listContacts.add(ContactImpl.Address(city, street, house, flat))
+            listContacts.add(Contact.Address(city, street, house, flat))
         }
         LOG.info("Added address contact with city: $city, street: $street, house: $house and flat: $flat to person: $person")
     }
@@ -61,7 +60,7 @@ class ContactsServiceImpl : ContactsService {
         }
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
-            listContacts.add(ContactImpl.LinkToSocialNetwork(title, link))
+            listContacts.add(Contact.LinkToSocialNetwork(title, link))
         }
         LOG.info("Added link to social network contact with title: $title and link: $link to person: $person")
     }
@@ -97,44 +96,44 @@ class ContactsServiceImpl : ContactsService {
         }
     }
 
-    override fun getPersonPhones(person: Person): List<ContactImpl.Phone> {
+    override fun getPersonPhones(person: Person): List<Contact.Phone> {
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
             LOG.info("Returned phone contacts of a person: $person")
-            return listContacts.filterIsInstance<ContactImpl.Phone>()
+            return listContacts.filterIsInstance<Contact.Phone>()
         } else {
             LOG.info("Not returned phone contacts of a person: $person because they are not there. Returned empty list")
             return emptyList()
         }
     }
 
-    override fun getPersonEmails(person: Person): List<ContactImpl.Email> {
+    override fun getPersonEmails(person: Person): List<Contact.Email> {
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
             LOG.info("Returned email contacts of a person: $person")
-            return listContacts.filterIsInstance<ContactImpl.Email>()
+            return listContacts.filterIsInstance<Contact.Email>()
         } else {
             LOG.info("Not returned email contacts of a person: $person because they are not there. Returned empty list")
             return emptyList()
         }
     }
 
-    override fun getPersonAddresses(person: Person): List<ContactImpl.Address> {
+    override fun getPersonAddresses(person: Person): List<Contact.Address> {
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
             LOG.info("Returned address contacts of a person: $person")
-            return listContacts.filterIsInstance<ContactImpl.Address>()
+            return listContacts.filterIsInstance<Contact.Address>()
         } else {
             LOG.info("Not returned address contacts of a person: $person because they are not there. Returned empty list")
             return emptyList()
         }
     }
 
-    override fun getPersonLinksToSocialNetwork(person: Person): List<ContactImpl.LinkToSocialNetwork> {
+    override fun getPersonLinksToSocialNetwork(person: Person): List<Contact.LinkToSocialNetwork> {
         val listContacts = peopleData.get(person)
         if (listContacts != null) {
             LOG.info("Returned links to social network contacts of a person: $person")
-            return listContacts.filterIsInstance<ContactImpl.LinkToSocialNetwork>()
+            return listContacts.filterIsInstance<Contact.LinkToSocialNetwork>()
         } else {
             LOG.info("Not returned links to social network contacts of a person: $person because they are not there. Returned empty list")
             return emptyList()

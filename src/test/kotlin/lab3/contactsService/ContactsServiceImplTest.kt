@@ -1,9 +1,8 @@
 package lab3.contactsService
 
 import lab3.contact.Contact
-import lab3.contact.ContactImpl
 import lab3.contact.PhoneType
-import lab3.person.PersonImpl
+import lab3.person.Person
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -16,215 +15,215 @@ internal class ContactsServiceImplTest {
     @BeforeEach
     fun setUp() {
         contactService = ContactsServiceImpl()
-        contactService.addContact(PersonImpl("Ilia", "Muromec"), ContactImpl.Email("ilia@mail.ru"))
-        contactService.addContact(PersonImpl("Alesha", "Popovich"), ContactImpl.Email("alesha@mail.ru"))
+        contactService.addContact(Person("Ilia", "Muromec"), Contact.Email("ilia@mail.ru"))
+        contactService.addContact(Person("Alesha", "Popovich"), Contact.Email("alesha@mail.ru"))
     }
 
     @Test
     fun addContact() {
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.Email("ilia@mail.ru")),
-            contactService.getPersonContacts(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Email("ilia@mail.ru")),
+            contactService.getPersonContacts(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Email("alesha@mail.ru")),
-            contactService.getPersonContacts(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Email("alesha@mail.ru")),
+            contactService.getPersonContacts(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun addPhone() {
-        contactService.addPhone(PersonImpl("Ilia", "Muromec"), 1234, PhoneType.HOME)
-        contactService.addPhone(PersonImpl("Alesha", "Popovich"), 5678, PhoneType.MOBILE)
+        contactService.addPhone(Person("Ilia", "Muromec"), 1234, PhoneType.HOME)
+        contactService.addPhone(Person("Alesha", "Popovich"), 5678, PhoneType.MOBILE)
 
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.Email("ilia@mail.ru"), ContactImpl.Phone(1234, PhoneType.HOME)),
-            contactService.getPersonContacts(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Email("ilia@mail.ru"), Contact.Phone(1234, PhoneType.HOME)),
+            contactService.getPersonContacts(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Email("alesha@mail.ru"), ContactImpl.Phone(5678, PhoneType.MOBILE)),
-            contactService.getPersonContacts(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Email("alesha@mail.ru"), Contact.Phone(5678, PhoneType.MOBILE)),
+            contactService.getPersonContacts(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun addEmail() {
-        contactService.addEmail(PersonImpl("Ilia", "Muromec"), "dadad@mail.ru")
-        contactService.addEmail(PersonImpl("Alesha", "Popovich"), "netnet@mail.ru")
+        contactService.addEmail(Person("Ilia", "Muromec"), "dadad@mail.ru")
+        contactService.addEmail(Person("Alesha", "Popovich"), "netnet@mail.ru")
 
 
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.Email("ilia@mail.ru"), ContactImpl.Email("dadad@mail.ru")),
-            contactService.getPersonContacts(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Email("ilia@mail.ru"), Contact.Email("dadad@mail.ru")),
+            contactService.getPersonContacts(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Email("alesha@mail.ru"), ContactImpl.Email("netnet@mail.ru")),
-            contactService.getPersonContacts(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Email("alesha@mail.ru"), Contact.Email("netnet@mail.ru")),
+            contactService.getPersonContacts(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun addAddress() {
-        contactService.addAddress(PersonImpl("Ilia", "Muromec"), "Tutove", "Tuta", 1, 1)
-        contactService.addAddress(PersonImpl("Alesha", "Popovich"), "Sudova", "Suda", 2, 2)
+        contactService.addAddress(Person("Ilia", "Muromec"), "Tutove", "Tuta", 1, 1)
+        contactService.addAddress(Person("Alesha", "Popovich"), "Sudova", "Suda", 2, 2)
 
 
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.Email("ilia@mail.ru"), ContactImpl.Address("Tutove", "Tuta", 1, 1)),
-            contactService.getPersonContacts(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Email("ilia@mail.ru"), Contact.Address("Tutove", "Tuta", 1, 1)),
+            contactService.getPersonContacts(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Email("alesha@mail.ru"), ContactImpl.Address("Sudova", "Suda", 2, 2)),
-            contactService.getPersonContacts(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Email("alesha@mail.ru"), Contact.Address("Sudova", "Suda", 2, 2)),
+            contactService.getPersonContacts(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun addLinkToSocialNetwork() {
-        contactService.addLinkToSocialNetwork(PersonImpl("Ilia", "Muromec"), "Gulub", "https://Golub/123")
-        contactService.addLinkToSocialNetwork(PersonImpl("Alesha", "Popovich"), "Gulub", "https://Gulub/456")
+        contactService.addLinkToSocialNetwork(Person("Ilia", "Muromec"), "Gulub", "https://Golub/123")
+        contactService.addLinkToSocialNetwork(Person("Alesha", "Popovich"), "Gulub", "https://Gulub/456")
 
 
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.Email("ilia@mail.ru"), ContactImpl.LinkToSocialNetwork("Gulub", "https://Golub/123")),
-            contactService.getPersonContacts(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Email("ilia@mail.ru"), Contact.LinkToSocialNetwork("Gulub", "https://Golub/123")),
+            contactService.getPersonContacts(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Email("alesha@mail.ru"), ContactImpl.LinkToSocialNetwork("Gulub", "https://Gulub/456")),
-            contactService.getPersonContacts(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Email("alesha@mail.ru"), Contact.LinkToSocialNetwork("Gulub", "https://Gulub/456")),
+            contactService.getPersonContacts(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun removeContact() {
-        contactService.removeContact(PersonImpl("Ilia", "Muromec"), ContactImpl.Email("ilia@mail.ru"))
-        contactService.removeContact(PersonImpl("Alesha", "Popovich"), ContactImpl.Email("alesha@mail.ru"))
+        contactService.removeContact(Person("Ilia", "Muromec"), Contact.Email("ilia@mail.ru"))
+        contactService.removeContact(Person("Alesha", "Popovich"), Contact.Email("alesha@mail.ru"))
 
         assertEquals(2, contactService.getSize())
         assertEquals(
             listOf<Contact>(),
-            contactService.getPersonContacts(PersonImpl("Ilia", "Muromec"))
+            contactService.getPersonContacts(Person("Ilia", "Muromec"))
         )
         assertEquals(
             listOf<Contact>(),
-            contactService.getPersonContacts(PersonImpl("Alesha", "Popovich"))
+            contactService.getPersonContacts(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun removeAllPersonData() {
-        contactService.addLinkToSocialNetwork(PersonImpl("Ilia", "Muromec"), "Gulub", "https://Golub/123")
-        contactService.addLinkToSocialNetwork(PersonImpl("Alesha", "Popovich"), "Gulub", "https://Gulub/456")
+        contactService.addLinkToSocialNetwork(Person("Ilia", "Muromec"), "Gulub", "https://Golub/123")
+        contactService.addLinkToSocialNetwork(Person("Alesha", "Popovich"), "Gulub", "https://Gulub/456")
 
-        contactService.addAddress(PersonImpl("Ilia", "Muromec"), "Tutove", "Tuta", 1, 1)
-        contactService.addAddress(PersonImpl("Alesha", "Popovich"), "Sudova", "Suda", 2, 2)
+        contactService.addAddress(Person("Ilia", "Muromec"), "Tutove", "Tuta", 1, 1)
+        contactService.addAddress(Person("Alesha", "Popovich"), "Sudova", "Suda", 2, 2)
 
-        contactService.removeAllPersonData(PersonImpl("Ilia", "Muromec"))
-        contactService.removeAllPersonData(PersonImpl("Alesha", "Popovich"))
+        contactService.removeAllPersonData(Person("Ilia", "Muromec"))
+        contactService.removeAllPersonData(Person("Alesha", "Popovich"))
 
         assertEquals(2, contactService.getSize())
         assertEquals(
             listOf<Contact>(),
-            contactService.getPersonContacts(PersonImpl("Ilia", "Muromec"))
+            contactService.getPersonContacts(Person("Ilia", "Muromec"))
         )
         assertEquals(
             listOf<Contact>(),
-            contactService.getPersonContacts(PersonImpl("Alesha", "Popovich"))
+            contactService.getPersonContacts(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun getPersonContacts() {
-        contactService.addEmail(PersonImpl("Ilia", "Muromec"), "dadad@mail.ru")
-        contactService.addEmail(PersonImpl("Alesha", "Popovich"), "netnet@mail.ru")
+        contactService.addEmail(Person("Ilia", "Muromec"), "dadad@mail.ru")
+        contactService.addEmail(Person("Alesha", "Popovich"), "netnet@mail.ru")
 
 
         assertEquals(
-            listOf(ContactImpl.Email("ilia@mail.ru"), ContactImpl.Email("dadad@mail.ru")),
-            contactService.getPersonContacts(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Email("ilia@mail.ru"), Contact.Email("dadad@mail.ru")),
+            contactService.getPersonContacts(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Email("alesha@mail.ru"), ContactImpl.Email("netnet@mail.ru")),
-            contactService.getPersonContacts(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Email("alesha@mail.ru"), Contact.Email("netnet@mail.ru")),
+            contactService.getPersonContacts(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun getPersonPhones() {
-        contactService.addPhone(PersonImpl("Ilia", "Muromec"), 1234, PhoneType.HOME)
-        contactService.addPhone(PersonImpl("Alesha", "Popovich"), 5678, PhoneType.MOBILE)
+        contactService.addPhone(Person("Ilia", "Muromec"), 1234, PhoneType.HOME)
+        contactService.addPhone(Person("Alesha", "Popovich"), 5678, PhoneType.MOBILE)
 
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.Phone(1234, PhoneType.HOME)),
-            contactService.getPersonPhones(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Phone(1234, PhoneType.HOME)),
+            contactService.getPersonPhones(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Phone(5678, PhoneType.MOBILE)),
-            contactService.getPersonPhones(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Phone(5678, PhoneType.MOBILE)),
+            contactService.getPersonPhones(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun getPersonEmails() {
-        contactService.addEmail(PersonImpl("Ilia", "Muromec"), "dadad@mail.ru")
-        contactService.addEmail(PersonImpl("Alesha", "Popovich"), "netnet@mail.ru")
+        contactService.addEmail(Person("Ilia", "Muromec"), "dadad@mail.ru")
+        contactService.addEmail(Person("Alesha", "Popovich"), "netnet@mail.ru")
 
 
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.Email("ilia@mail.ru"), ContactImpl.Email("dadad@mail.ru")),
-            contactService.getPersonEmails(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Email("ilia@mail.ru"), Contact.Email("dadad@mail.ru")),
+            contactService.getPersonEmails(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Email("alesha@mail.ru"), ContactImpl.Email("netnet@mail.ru")),
-            contactService.getPersonEmails(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Email("alesha@mail.ru"), Contact.Email("netnet@mail.ru")),
+            contactService.getPersonEmails(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun getPersonAddresses() {
-        contactService.addAddress(PersonImpl("Ilia", "Muromec"), "Tutove", "Tuta", 1, 1)
-        contactService.addAddress(PersonImpl("Alesha", "Popovich"), "Sudova", "Suda", 2, 2)
+        contactService.addAddress(Person("Ilia", "Muromec"), "Tutove", "Tuta", 1, 1)
+        contactService.addAddress(Person("Alesha", "Popovich"), "Sudova", "Suda", 2, 2)
 
 
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.Address("Tutove", "Tuta", 1, 1)),
-            contactService.getPersonAddresses(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.Address("Tutove", "Tuta", 1, 1)),
+            contactService.getPersonAddresses(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.Address("Sudova", "Suda", 2, 2)),
-            contactService.getPersonAddresses(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.Address("Sudova", "Suda", 2, 2)),
+            contactService.getPersonAddresses(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun getPersonLinksToSocialNetwork() {
-        contactService.addLinkToSocialNetwork(PersonImpl("Ilia", "Muromec"), "Gulub", "https://Golub/123")
-        contactService.addLinkToSocialNetwork(PersonImpl("Alesha", "Popovich"), "Gulub", "https://Gulub/456")
+        contactService.addLinkToSocialNetwork(Person("Ilia", "Muromec"), "Gulub", "https://Golub/123")
+        contactService.addLinkToSocialNetwork(Person("Alesha", "Popovich"), "Gulub", "https://Gulub/456")
 
 
         assertEquals(2, contactService.getSize())
         assertEquals(
-            listOf(ContactImpl.LinkToSocialNetwork("Gulub", "https://Golub/123")),
-            contactService.getPersonLinksToSocialNetwork(PersonImpl("Ilia", "Muromec"))
+            listOf(Contact.LinkToSocialNetwork("Gulub", "https://Golub/123")),
+            contactService.getPersonLinksToSocialNetwork(Person("Ilia", "Muromec"))
         )
         assertEquals(
-            listOf(ContactImpl.LinkToSocialNetwork("Gulub", "https://Gulub/456")),
-            contactService.getPersonLinksToSocialNetwork(PersonImpl("Alesha", "Popovich"))
+            listOf(Contact.LinkToSocialNetwork("Gulub", "https://Gulub/456")),
+            contactService.getPersonLinksToSocialNetwork(Person("Alesha", "Popovich"))
         )
     }
 
     @Test
     fun getAllPersons() {
         assertEquals(
-            listOf(PersonImpl("Ilia", "Muromec"), PersonImpl("Alesha", "Popovich")),
+            listOf(Person("Ilia", "Muromec"), Person("Alesha", "Popovich")),
             contactService.getAllPersons()
         )
     }
@@ -233,8 +232,8 @@ internal class ContactsServiceImplTest {
     fun getAllContacts() {
         assertEquals(
             mapOf(
-                PersonImpl("Ilia", "Muromec") to listOf<Contact>(ContactImpl.Email("ilia@mail.ru")),
-                PersonImpl("Alesha", "Popovich") to listOf<Contact>(ContactImpl.Email("alesha@mail.ru"))
+                Person("Ilia", "Muromec") to listOf<Contact>(Contact.Email("ilia@mail.ru")),
+                Person("Alesha", "Popovich") to listOf<Contact>(Contact.Email("alesha@mail.ru"))
             ), contactService.getAllContacts()
         )
     }
@@ -243,11 +242,11 @@ internal class ContactsServiceImplTest {
     @Test
     fun findPersons() {
         assertEquals(
-            listOf(PersonImpl("Alesha", "Popovich")),
+            listOf(Person("Alesha", "Popovich")),
             contactService.findPersons("Alesha", "Popovich")
         )
         assertEquals(
-            listOf(PersonImpl("Ilia", "Muromec")),
+            listOf(Person("Ilia", "Muromec")),
             contactService.findPersons(subStringOfFirstName = null, "uro")
         )
     }

@@ -1,6 +1,3 @@
 package lab3.person
 
-interface Person {
-    val firstName: String
-    val lastName: String
-}
+data class Person(val firstName: String, val lastName: String)

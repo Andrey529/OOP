@@ -7,17 +7,17 @@ import lab3.person.*
 fun main(args: Array<String>) {
 
     val contactService = ContactsServiceImpl()
-    val person = PersonImpl("Andrey", "Bludin")
-    val email = ContactImpl.Email("andr755234@mail.ru")
+    val person = Person("Andrey", "Bludin")
+    val email = Contact.Email("andr755234@mail.ru")
 
     contactService.addContact(person, email)
-    contactService.addContact(PersonImpl("Danil", "Khromenko"), ContactImpl.Email("dadad@mail.ru"))
-    contactService.addContact(person, ContactImpl.Email("1232435@mail.ru"))
-    contactService.addContact(person, ContactImpl.Phone(12345, PhoneType.HOME))
+    contactService.addContact(Person("Danil", "Khromenko"), Contact.Email("dadad@mail.ru"))
+    contactService.addContact(person, Contact.Email("1232435@mail.ru"))
+    contactService.addContact(person, Contact.Phone(12345, PhoneType.HOME))
 
-    val listEmails = contactService.getPersonEmails(PersonImpl("Andrey", "Bludin"))
-    val listPhones = contactService.getPersonPhones(PersonImpl("Andrey", "Bludin"))
-    val listContacts = contactService.getPersonContacts(PersonImpl("Andrey", "Bludin"))
+    val listEmails = contactService.getPersonEmails(Person("Andrey", "Bludin"))
+    val listPhones = contactService.getPersonPhones(Person("Andrey", "Bludin"))
+    val listContacts = contactService.getPersonContacts(Person("Andrey", "Bludin"))
     println(listEmails)
     println(listPhones)
     println(listContacts)
