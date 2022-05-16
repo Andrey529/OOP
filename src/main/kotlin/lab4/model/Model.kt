@@ -37,25 +37,25 @@ interface ModelChangeListener {
 
 
 class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
-    private val _board: MutableMap<Pair<Int, Int>, Char> = readBoardFromFile(fileWithLabyrinth)
-    val board: MutableMap<Pair<Int, Int>, Char>
+    private val _board: MutableMap<Position, Cell> = readBoardFromFile(fileWithLabyrinth)
+    val board: MutableMap<Position, Cell>
         get() = _board
 
     private val _startPosition = Position(
-        _board.filter { it.value == 'S' }.keys.first().second,
-        _board.filter { it.value == 'S' }.keys.first().first
+        _board.filter { it.value == Cell.START }.keys.first().y,
+        _board.filter { it.value == Cell.START }.keys.first().x
     )
 
     private val _finishPosition = Position(
-        _board.filter { it.value == 'F' }.keys.first().second,
-        _board.filter { it.value == 'F' }.keys.first().first
+        _board.filter { it.value == Cell.FINISH }.keys.first().y,
+        _board.filter { it.value == Cell.FINISH }.keys.first().x
     )
 
     private var _currentPosition = _startPosition
 
     var state: State = State.NOT_YET_WIN
-    private val _boardHeight = _board.keys.maxOf { it.first }
-    private val _boardWidth = _board.keys.maxOf { it.second }
+    private val _boardHeight = _board.keys.maxOf { it.x }
+    private val _boardWidth = _board.keys.maxOf { it.y }
 
     private val listeners: MutableSet<ModelChangeListener> = mutableSetOf()
 
@@ -84,21 +84,21 @@ class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
 
         // wall collision test
         require(
-            (move == Move.LEFT && (_board[Pair(_currentPosition.y, _currentPosition.x - 1)] == '-' ||
-                    _board[Pair(_currentPosition.y, _currentPosition.x - 1)] == 'S' ||
-                    _board[Pair(_currentPosition.y, _currentPosition.x - 1)] == 'F')
+            (move == Move.LEFT && (_board[Position(_currentPosition.y, _currentPosition.x - 1)] == Cell.WAY ||
+                    _board[Position(_currentPosition.y, _currentPosition.x - 1)] == Cell.START ||
+                    _board[Position(_currentPosition.y, _currentPosition.x - 1)] == Cell.FINISH)
                     ) ||
-                    (move == Move.RIGHT && (_board[Pair(_currentPosition.y, _currentPosition.x + 1)] == '-' ||
-                            _board[Pair(_currentPosition.y, _currentPosition.x + 1)] == 'S' ||
-                            _board[Pair(_currentPosition.y, _currentPosition.x + 1)] == 'F')
+                    (move == Move.RIGHT && (_board[Position(_currentPosition.y, _currentPosition.x + 1)] == Cell.WAY ||
+                            _board[Position(_currentPosition.y, _currentPosition.x + 1)] == Cell.START ||
+                            _board[Position(_currentPosition.y, _currentPosition.x + 1)] == Cell.FINISH)
                             ) ||
-                    (move == Move.UP && (_board[Pair(_currentPosition.y - 1, _currentPosition.x)] == '-' ||
-                            _board[Pair(_currentPosition.y - 1, _currentPosition.x)] == 'S' ||
-                            _board[Pair(_currentPosition.y - 1, _currentPosition.x)] == 'F')
+                    (move == Move.UP && (_board[Position(_currentPosition.y - 1, _currentPosition.x)] == Cell.WAY ||
+                            _board[Position(_currentPosition.y - 1, _currentPosition.x)] == Cell.START ||
+                            _board[Position(_currentPosition.y - 1, _currentPosition.x)] == Cell.FINISH)
                             ) ||
-                    (move == Move.DOWN && (_board[Pair(_currentPosition.y + 1, _currentPosition.x)] == '-' ||
-                            _board[Pair(_currentPosition.y + 1, _currentPosition.x)] == 'S' ||
-                            _board[Pair(_currentPosition.y + 1, _currentPosition.x)] == 'F')
+                    (move == Move.DOWN && (_board[Position(_currentPosition.y + 1, _currentPosition.x)] == Cell.WAY ||
+                            _board[Position(_currentPosition.y + 1, _currentPosition.x)] == Cell.START ||
+                            _board[Position(_currentPosition.y + 1, _currentPosition.x)] == Cell.FINISH)
                             )
         ) { "It is impossible to make such a move" }
 
@@ -118,24 +118,22 @@ class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
     }
 
 
-    fun readBoardFromFile(file: File): MutableMap<Pair<Int, Int>, Char> {
-        val board = mutableMapOf<Pair<Int, Int>, Char>()
+    fun readBoardFromFile(file: File): MutableMap<Position, Cell> {
+        val board = mutableMapOf<Position, Cell>()
         file.useLines { lines ->
             lines.withIndex().forEach { line ->
                 line.value.withIndex().forEach { sumbols ->
-                    board.put(Pair(line.index, sumbols.index), sumbols.value)
+                    board.put(Position(line.index, sumbols.index), when(sumbols.value) {
+                        'S' -> Cell.START
+                        'F' -> Cell.FINISH
+                        '#' -> Cell.WALL
+                        '-' -> Cell.WAY
+                        else -> Cell.WALL
+                    })
                 }
             }
         }
         return board
-    }
-
-    fun printBoard() {
-        _board.forEach {
-            if (it.key.second == 0 && it.key.first != 0) println()
-            print(it.value)
-        }
-        println()
     }
 
     override fun toString(): String {
@@ -147,7 +145,7 @@ class Model(fileWithLabyrinth: File = File("src/main/resources/test.txt")) {
                     if (i == _currentPosition.y && j == _currentPosition.x)
                         append('P')
                     else
-                        append(_board[Pair(i, j)])
+                        append(_board[Position(i, j)])
                 }
                 appendLine()
             }
