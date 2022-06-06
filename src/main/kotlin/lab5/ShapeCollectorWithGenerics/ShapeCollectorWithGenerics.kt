@@ -15,8 +15,8 @@ interface ShapeCollectorWithGenerics<T : ColoredShape2d> {
     fun getCountShapes(): Int
     fun getShapesGroupedByBorderColor(): Map<ColorRGB, List<T>>
     fun getShapesGroupedByFillColor(): Map<ColorRGB, List<T>>
-    fun <Ttype : T> getShapesByType(type: Class<Ttype>): List<Ttype>
+    fun <T> getShapesByType(type: Class<T>): List<T>
 
     fun addAll(collection: Collection<T>)
-    fun getSorted(comparator: Comparator<T>): List<T>
+    fun getSorted(comparator: Comparator<in T>): List<T>
 }

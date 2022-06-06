@@ -46,16 +46,15 @@ class ShapeCollectorWithGenericsImpl<T : ColoredShape2d> : ShapeCollectorWithGen
         return shapeList.groupBy { it.fillColor }
     }
 
-    override fun <Ttype : T> getShapesByType(type: Class<Ttype>): List<Ttype> {
-        @Suppress("UNCHECKED_CAST")
-        return shapeList.filter { type.isInstance(it) } as List<Ttype>
+    override fun <T> getShapesByType(type: Class<T>): List<T> {
+        return this.getAllShapes().filterIsInstance(type)
     }
 
     override fun addAll(collection: Collection<T>) {
         shapeList.addAll(collection)
     }
 
-    override fun getSorted(comparator: Comparator<T>): List<T> {
+    override fun getSorted(comparator: Comparator<in T>): List<T> {
         return shapeList.sortedWith(comparator)
     }
 
