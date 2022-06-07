@@ -1,0 +1,87 @@
+[
+    {
+        "type": "lab2.shape2d.circle.ColoredCircle",
+        "semidiameter": 5.0,
+        "fillColor": {
+            "red": 1,
+            "green": 2,
+            "blue": 3,
+            "clarity": 4
+        },
+        "borderColor": {
+            "red": 5,
+            "green": 6,
+            "blue": 7,
+            "clarity": 8
+        }
+    },
+    {
+        "type": "lab2.shape2d.quadrilateral.rectangle.ColoredRectangle",
+        "length": 4.0,
+        "width": 5.0,
+        "fillColor": {
+            "red": 50,
+            "green": 50,
+            "blue": 50,
+            "clarity": 50
+        },
+        "borderColor": {
+            "red": 5,
+            "green": 6,
+            "blue": 7,
+            "clarity": 8
+        }
+    },
+    {
+        "type": "lab2.shape2d.quadrilateral.square.ColoredSquare",
+        "length": 4.0,
+        "fillColor": {
+            "red": 100,
+            "green": 100,
+            "blue": 100,
+            "clarity": 100
+        },
+        "borderColor": {
+            "red": 9,
+            "green": 10,
+            "blue": 11,
+            "clarity": 12
+        }
+    },
+    {
+        "type": "lab2.shape2d.triangle.ColoredTriangle",
+        "side1": 5.0,
+        "side2": 4.0,
+        "side3": 3.0,
+        "fillColor": {
+            "red": 1,
+            "green": 2,
+            "blue": 3,
+            "clarity": 4
+        },
+        "borderColor": {
+            "red": 5,
+            "green": 6,
+            "blue": 7,
+            "clarity": 8
+        }
+    },
+    {
+        "type": "lab2.shape2d.triangle.ColoredTriangle",
+        "side1": 5.0,
+        "side2": 6.0,
+        "side3": 7.0,
+        "fillColor": {
+            "red": 1,
+            "green": 2,
+            "blue": 3,
+            "clarity": 4
+        },
+        "borderColor": {
+            "red": 5,
+            "green": 6,
+            "blue": 7,
+            "clarity": 8
+        }
+    }
+]

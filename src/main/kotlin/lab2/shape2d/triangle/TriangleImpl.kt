@@ -5,6 +5,7 @@ import lab2.shape2d.ColoredShape2d
 import lab2.shape2d.Shape2d
 import kotlin.math.sqrt
 
+@kotlinx.serialization.Serializable
 data class NotColoredTriangle(
     override val side1: Double,
     override val side2: Double,
@@ -22,6 +23,7 @@ data class NotColoredTriangle(
     }
 }
 
+@kotlinx.serialization.Serializable
 data class ColoredTriangle(
     override val side1: Double,
     override val side2: Double,

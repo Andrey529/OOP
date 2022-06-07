@@ -4,6 +4,7 @@ import lab2.colorRGB.ColorRGB
 import lab2.shape2d.ColoredShape2d
 import lab2.shape2d.Shape2d
 
+@kotlinx.serialization.Serializable
 data class NotColoredRectangle(override val length: Double, override val width: Double) : Rectangle, Shape2d {
     init {
         require(length > 0) { "Incorrect length in Not Colored Square" }
@@ -13,6 +14,7 @@ data class NotColoredRectangle(override val length: Double, override val width: 
     override fun calcArea(): Double = length * width
 }
 
+@kotlinx.serialization.Serializable
 data class ColoredRectangle(
     override val length: Double,
     override val width: Double,
