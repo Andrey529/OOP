@@ -1,5 +1,6 @@
 package lab2.colorRGB
 
+@kotlinx.serialization.Serializable
 data class ColorRGB(val red: Int, val green: Int, val blue: Int, val clarity: Int) {
     init {
         require(red in 0..255) { "Incorrect value of the red component of the color" }

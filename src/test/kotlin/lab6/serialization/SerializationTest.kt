@@ -1,11 +1,12 @@
 package lab6.serialization
 
-import lab6.shapeCollector.ShapeCollector
-import lab6.shapeCollector.ShapeCollectorImpl
-import lab6.colorRGB.ColorRGB
-import lab6.shape2d.circle.ColoredCircle
-import lab6.shape2d.quadrilateral.rectangle.ColoredRectangle
-import lab6.shape2d.quadrilateral.square.ColoredSquare
+import lab2.shapeCollector.ShapeCollector
+import lab2.shapeCollector.ShapeCollectorImpl
+import lab2.colorRGB.ColorRGB
+import lab2.shape2d.circle.ColoredCircle
+import lab2.shape2d.quadrilateral.rectangle.ColoredRectangle
+import lab2.shape2d.quadrilateral.square.ColoredSquare
+import lab6.serializationWithFiles.SerializationWithFiles
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -16,6 +17,7 @@ internal class SerializationTest {
 
     private lateinit var shapeCollector: ShapeCollector
     private val serializer: Serialization = Serialization()
+    private val serializerWithFiles = SerializationWithFiles()
     private val fileFrom = File("src/test/kotlin/lab6/serialization/serializeFromTest.json")
     private val fileTo = File("src/test/kotlin/lab6/serialization/serializeToTest.json")
 
@@ -34,26 +36,26 @@ internal class SerializationTest {
 
     @Test
     fun serialize() {
-        val encodedString = serializer.serialize(shapeCollector)
+        val encodedString = serializer.serialize(shapeCollector.getAllShapes())
         assertEquals(fileFrom.readText(), encodedString)
     }
 
     @Test
     fun deserialize() {
-        val encodedString = serializer.serialize(shapeCollector)
-        val newShapeCollector = serializer.deserialize(encodedString)
-        assertEquals(shapeCollector.getAllShapes(), newShapeCollector.getAllShapes())
+        val encodedString = serializer.serialize(shapeCollector.getAllShapes())
+        val newShapesList = serializer.deserialize(encodedString)
+        assertEquals(shapeCollector.getAllShapes(), newShapesList)
     }
 
     @Test
     fun serializeToFile() {
-        serializer.serializeToFile(shapeCollector, fileTo)
-        assertEquals(serializer.serialize(shapeCollector), fileTo.readText())
+        serializerWithFiles.serializeToFile(shapeCollector.getAllShapes(), fileTo)
+        assertEquals(serializer.serialize(shapeCollector.getAllShapes()), fileTo.readText())
     }
 
     @Test
     fun deserializeFromFile() {
-        val newShapeCollector = serializer.deserializeFromFile(fileFrom)
-        assertEquals(shapeCollector.getAllShapes(), newShapeCollector!!.getAllShapes())
+        val newShapesList = serializerWithFiles.deserializeFromFile(fileFrom)
+        assertEquals(shapeCollector.getAllShapes(), newShapesList)
     }
 }

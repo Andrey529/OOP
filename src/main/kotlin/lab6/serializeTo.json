@@ -1,6 +1,6 @@
 [
     {
-        "type": "lab6.shape2d.circle.ColoredCircle",
+        "type": "lab2.shape2d.circle.ColoredCircle",
         "semidiameter": 5.0,
         "fillColor": {
             "red": 1,
@@ -16,7 +16,7 @@
         }
     },
     {
-        "type": "lab6.shape2d.quadrilateral.rectangle.ColoredRectangle",
+        "type": "lab2.shape2d.quadrilateral.rectangle.ColoredRectangle",
         "length": 4.0,
         "width": 5.0,
         "fillColor": {
@@ -33,7 +33,7 @@
         }
     },
     {
-        "type": "lab6.shape2d.quadrilateral.square.ColoredSquare",
+        "type": "lab2.shape2d.quadrilateral.square.ColoredSquare",
         "length": 4.0,
         "fillColor": {
             "red": 100,
@@ -49,7 +49,7 @@
         }
     },
     {
-        "type": "lab6.shape2d.triangle.ColoredTriangle",
+        "type": "lab2.shape2d.triangle.ColoredTriangle",
         "side1": 5.0,
         "side2": 4.0,
         "side3": 3.0,
@@ -67,7 +67,7 @@
         }
     },
     {
-        "type": "lab6.shape2d.triangle.ColoredTriangle",
+        "type": "lab2.shape2d.triangle.ColoredTriangle",
         "side1": 5.0,
         "side2": 6.0,
         "side3": 7.0,
